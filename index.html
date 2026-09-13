@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TradeMind — Trading Intelligence</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0b0f14;
+      color: #f5f7fa;
+    }
+
+    header {
+      height: 70px;
+      border-bottom: 1px solid #202832;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 35px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #4ade80;
+    }
+
+    nav a {
+      color: #9ca3af;
+      text-decoration: none;
+      margin-left: 25px;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    main {
+      padding: 35px;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .welcome {
+      margin-bottom: 30px;
+    }
+
+    .welcome h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #8b949e;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: #111820;
+      border: 1px solid #202832;
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .card-title {
+      color: #8b949e;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .value {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .positive {
+      color: #4ade80;
+    }
+
+    .negative {
+      color: #f87171;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    .panel {
+      background: #111820;
+      border: 1px solid #202832;
+      border-radius: 12px;
+      padding: 25px;
+    }
+
+    .panel h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .chart {
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4ade80;
+      border-bottom: 1px solid #202832;
+      position: relative;
+    }
+
+    .chart svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 13px 8px;
+      text-align: left;
+      border-bottom: 1px solid #202832;
+      font-size: 13px;
+    }
+
+    th {
+      color: #8b949e;
+      font-weight: normal;
+    }
+
+    .score {
+      text-align: center;
+      padding: 15px;
+    }
+
+    .score-number {
+      font-size: 60px;
+      font-weight: bold;
+      color: #4ade80;
+      margin: 15px 0;
+    }
+
+    .score p {
+      color: #8b949e;
+      font-size: 13px;
+    }
+
+    .button {
+      background: #4ade80;
+      color: #07100a;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 7px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      opacity: .85;
+    }
+
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 0 18px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Trade<span>Mind</span></div>
+
+  <nav>
+    <a href="#">Dashboard</a>
+    <a href="#">Journal</a>
+    <a href="#">Analytics</a>
+    <a href="#">Profile</a>
+  </nav>
+
+  <button class="button">+ Add Trade</button>
+</header>
+
+<main>
+
+  <section class="welcome">
+    <h1>Trading Dashboard</h1>
+    <p>Your trading performance at a glance.</p>
+  </section>
+
+  <section class="cards">
+
+    <div class="card">
+      <div class="card-title">TOTAL P&L</div>
+      <div class="value positive">+$1,245.50</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">WIN RATE</div>
+      <div class="value">68.4%</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">PROFIT FACTOR</div>
+      <div class="value">1.82</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">MAX DRAWDOWN</div>
+      <div class="value negative">-6.2%</div>
+    </div>
+
+  </section>
+
+  <section class="content">
+
+    <div class="panel">
+
+      <h2>Equity Curve</h2>
+
+      <div class="chart">
+
+        <svg viewBox="0 0 800 280" preserveAspectRatio="none">
+
+          <polyline
+            points="0,240 80,220 150,230 220,180 300,195 380,140 450,155 530,105 600,125 680,65 800,35"
+            fill="none"
+            stroke="#4ade80"
+            stroke-width="4"
+          />
+
+        </svg>
+
+      </div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>Trader Score</h2>
+
+      <div class="score">
+
+        <div class="score-number">82</div>
+
+        <p>Good performance</p>
+        <br>
+
+        <p>Risk Management: 85</p>
+        <p>Consistency: 79</p>
+        <p>Discipline: 83</p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <br>
+
+  <div class="panel">
+
+    <h2>Recent Trades</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Pair</th>
+          <th>Side</th>
+          <th>Entry</th>
+          <th>Exit</th>
+          <th>P&L</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td>13 Sep</td>
+          <td>EURUSD</td>
+          <td>BUY</td>
+          <td>1.1650</td>
+          <td>1.1680</td>
+          <td class="positive">+$120</td>
+        </tr>
+
+        <tr>
+          <td>12 Sep</td>
+          <td>XAUUSD</td>
+          <td>SELL</td>
+          <td>3,650</td>
+          <td>3,640</td>
+          <td class="positive">+$85</td>
+        </tr>
+
+        <tr>
+          <td>11 Sep</td>
+          <td>GBPUSD</td>
+          <td>BUY</td>
+          <td>1.3500</td>
+          <td>1.3470</td>
+          <td class="negative">-$40</td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</main>
+
+</body>
+  </html>
