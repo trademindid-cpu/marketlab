@@ -1,360 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TradeMind — Trading Intelligence</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #0b0f14;
-      color: #f5f7fa;
-    }
-
-    header {
-      height: 70px;
-      border-bottom: 1px solid #202832;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 35px;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .logo span {
-      color: #4ade80;
-    }
-
-    nav a {
-      color: #9ca3af;
-      text-decoration: none;
-      margin-left: 25px;
-      font-size: 14px;
-    }
-
-    nav a:hover {
-      color: white;
-    }
-
-    main {
-      padding: 35px;
-      max-width: 1400px;
-      margin: auto;
-    }
-
-    .welcome {
-      margin-bottom: 30px;
-    }
-
-    .welcome h1 {
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
-
-    .welcome p {
-      color: #8b949e;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-bottom: 25px;
-    }
-
-    .card {
-      background: #111820;
-      border: 1px solid #202832;
-      border-radius: 12px;
-      padding: 22px;
-    }
-
-    .card-title {
-      color: #8b949e;
-      font-size: 13px;
-      margin-bottom: 12px;
-    }
-
-    .value {
-      font-size: 25px;
-      font-weight: bold;
-    }
-
-    .positive {
-      color: #4ade80;
-    }
-
-    .negative {
-      color: #f87171;
-    }
-
-    .content {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
-    }
-
-    .panel {
-      background: #111820;
-      border: 1px solid #202832;
-      border-radius: 12px;
-      padding: 25px;
-    }
-
-    .panel h2 {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .chart {
-      height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4ade80;
-      border-bottom: 1px solid #202832;
-      position: relative;
-    }
-
-    .chart svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      padding: 13px 8px;
-      text-align: left;
-      border-bottom: 1px solid #202832;
-      font-size: 13px;
-    }
-
-    th {
-      color: #8b949e;
-      font-weight: normal;
-    }
-
-    .score {
-      text-align: center;
-      padding: 15px;
-    }
-
-    .score-number {
-      font-size: 60px;
-      font-weight: bold;
-      color: #4ade80;
-      margin: 15px 0;
-    }
-
-    .score p {
-      color: #8b949e;
-      font-size: 13px;
-    }
-
-    .button {
-      background: #4ade80;
-      color: #07100a;
-      border: none;
-      padding: 11px 18px;
-      border-radius: 7px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      opacity: .85;
-    }
-
-    @media (max-width: 900px) {
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .content {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 0 18px;
-      }
-
-      nav {
-        display: none;
-      }
-
-      main {
-        padding: 20px;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TradeMind</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#080c11;color:#f5f7fa;font-family:Arial,sans-serif}
+header{height:70px;border-bottom:1px solid #202832;display:flex;align-items:center;justify-content:space-between;padding:0 30px}
+.logo{font-size:24px;font-weight:bold}.logo span{color:#4ade80}
+nav a{color:#9ca3af;text-decoration:none;margin:0 12px;font-size:14px}
+button{background:#4ade80;border:0;padding:11px 18px;border-radius:7px;font-weight:bold;cursor:pointer}
+main{max-width:1400px;margin:auto;padding:30px}
+h1{margin:0 0 8px}.muted{color:#8b949e}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:25px 0}
+.card,.panel{background:#111820;border:1px solid #202832;border-radius:12px;padding:20px}
+.title{font-size:12px;color:#8b949e;margin-bottom:10px}.value{font-size:25px;font-weight:bold}
+.green{color:#4ade80}.red{color:#f87171}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.chart{height:280px}.chart svg{width:100%;height:100%}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{text-align:left;padding:12px 8px;border-bottom:1px solid #202832;font-size:13px}
+th{color:#8b949e}
+.modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:20px}
+.form{background:#111820;border:1px solid #303943;border-radius:14px;padding:25px;width:100%;max-width:500px}
+.form h2{margin-top:0}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{font-size:12px;color:#9ca3af}input,select,textarea{width:100%;margin-top:6px;padding:11px;background:#080c11;border:1px solid #303943;border-radius:7px;color:white}
+textarea{min-height:70px;resize:vertical}.full{grid-column:1/-1}.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}.cancel{background:#303943;color:white}
+@media(max-width:800px){.cards{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}}
+@media(max-width:500px){.cards{grid-template-columns:1fr}nav{display:none}main{padding:18px}}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">Trade<span>Mind</span></div>
-
-  <nav>
-    <a href="#">Dashboard</a>
-    <a href="#">Journal</a>
-    <a href="#">Analytics</a>
-    <a href="#">Profile</a>
-  </nav>
-
-  <button class="button">+ Add Trade</button>
+<div class="logo">Trade<span>Mind</span></div>
+<nav>
+<a href="#">Dashboard</a>
+<a href="#journal">Journal</a>
+<a href="#">Analytics</a>
+</nav>
+<button onclick="openModal()">+ Add Trade</button>
 </header>
 
 <main>
 
-  <section class="welcome">
-    <h1>Trading Dashboard</h1>
-    <p>Your trading performance at a glance.</p>
-  </section>
+<div>
+<h1>Trading Dashboard</h1>
+<p class="muted">Your trading performance at a glance.</p>
+</div>
 
-  <section class="cards">
+<section class="cards">
+<div class="card"><div class="title">TOTAL P&L</div><div id="pnl" class="value green">$0.00</div></div>
+<div class="card"><div class="title">WIN RATE</div><div id="winrate" class="value">0%</div></div>
+<div class="card"><div class="title">PROFIT FACTOR</div><div id="pf" class="value">0</div></div>
+<div class="card"><div class="title">MAX DRAWDOWN</div><div id="dd" class="value red">0%</div></div>
+</section>
 
-    <div class="card">
-      <div class="card-title">TOTAL P&L</div>
-      <div class="value positive">+$1,245.50</div>
-    </div>
+<section class="grid">
 
-    <div class="card">
-      <div class="card-title">WIN RATE</div>
-      <div class="value">68.4%</div>
-    </div>
+<div class="panel">
+<h2>Equity Curve</h2>
+<div class="chart">
+<svg viewBox="0 0 800 280" preserveAspectRatio="none">
+<polyline id="line" points="0,250" fill="none" stroke="#4ade80" stroke-width="4"/>
+</svg>
+</div>
+</div>
 
-    <div class="card">
-      <div class="card-title">PROFIT FACTOR</div>
-      <div class="value">1.82</div>
-    </div>
+<div class="panel">
+<h2>Trader Score</h2>
+<div style="text-align:center;padding:25px">
+<div id="score" class="value green" style="font-size:65px">0</div>
+<p class="muted">Trading performance score</p>
+</div>
+</div>
 
-    <div class="card">
-      <div class="card-title">MAX DRAWDOWN</div>
-      <div class="value negative">-6.2%</div>
-    </div>
+</section>
 
-  </section>
+<br>
 
-  <section class="content">
-
-    <div class="panel">
-
-      <h2>Equity Curve</h2>
-
-      <div class="chart">
-
-        <svg viewBox="0 0 800 280" preserveAspectRatio="none">
-
-          <polyline
-            points="0,240 80,220 150,230 220,180 300,195 380,140 450,155 530,105 600,125 680,65 800,35"
-            fill="none"
-            stroke="#4ade80"
-            stroke-width="4"
-          />
-
-        </svg>
-
-      </div>
-
-    </div>
-
-    <div class="panel">
-
-      <h2>Trader Score</h2>
-
-      <div class="score">
-
-        <div class="score-number">82</div>
-
-        <p>Good performance</p>
-        <br>
-
-        <p>Risk Management: 85</p>
-        <p>Consistency: 79</p>
-        <p>Discipline: 83</p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <br>
-
-  <div class="panel">
-
-    <h2>Recent Trades</h2>
-
-    <table>
-
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Pair</th>
-          <th>Side</th>
-          <th>Entry</th>
-          <th>Exit</th>
-          <th>P&L</th>
-        </tr>
-      </thead>
-
-      <tbody>
-
-        <tr>
-          <td>13 Sep</td>
-          <td>EURUSD</td>
-          <td>BUY</td>
-          <td>1.1650</td>
-          <td>1.1680</td>
-          <td class="positive">+$120</td>
-        </tr>
-
-        <tr>
-          <td>12 Sep</td>
-          <td>XAUUSD</td>
-          <td>SELL</td>
-          <td>3,650</td>
-          <td>3,640</td>
-          <td class="positive">+$85</td>
-        </tr>
-
-        <tr>
-          <td>11 Sep</td>
-          <td>GBPUSD</td>
-          <td>BUY</td>
-          <td>1.3500</td>
-          <td>1.3470</td>
-          <td class="negative">-$40</td>
-        </tr>
-
-      </tbody>
-
-    </table>
-
-  </div>
+<section class="panel" id="journal">
+<h2>Trade Journal</h2>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Pair</th><th>Side</th><th>Entry</th><th>Exit</th><th>P&L</th>
+</tr>
+</thead>
+<tbody id="trades"></tbody>
+</table>
+</section>
 
 </main>
 
+<div class="modal" id="modal">
+<div class="form">
+<h2>Add Trade</h2>
+
+<div class="fields">
+
+<div>
+<label>Date</label>
+<input type="date" id="date">
+</div>
+
+<div>
+<label>Pair</label>
+<input id="pair" placeholder="EURUSD">
+</div>
+
+<div>
+<label>Side</label>
+<select id="side">
+<option>BUY</option>
+<option>SELL</option>
+</select>
+</div>
+
+<div>
+<label>Lot</label>
+<input type="number" id="lot" step="0.01" value="1">
+</div>
+
+<div>
+<label>Entry</label>
+<input type="number" id="entry" step="any">
+</div>
+
+<div>
+<label>Exit</label>
+<input type="number" id="exit" step="any">
+</div>
+
+<div>
+<label>Profit / Loss ($)</label>
+<input type="number" id="profit" step="any">
+</div>
+
+<div>
+<label>Strategy</label>
+<input id="strategy" placeholder="Breakout">
+</div>
+
+<div class="full">
+<label>Notes</label>
+<textarea id="notes" placeholder="Catatan trade..."></textarea>
+</div>
+
+</div>
+
+<div class="actions">
+<button class="cancel" onclick="closeModal()">Cancel</button>
+<button onclick="saveTrade()">Save Trade</button>
+</div>
+
+</div>
+</div>
+
+<script>
+let trades=JSON.parse(localStorage.getItem("trademind_trades")||"[]");
+
+function openModal(){
+document.getElementById("modal").style.display="flex";
+document.getElementById("date").value=new Date().toISOString().slice(0,10);
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
+function saveTrade(){
+const trade={
+date:document.getElementById("date").value,
+pair:document.getElementById("pair").value.toUpperCase(),
+side:document.getElementById("side").value,
+lot:Number(document.getElementById("lot").value),
+entry:Number(document.getElementById("entry").value),
+exit:Number(document.getElementById("exit").value),
+profit:Number(document.getElementById("profit").value),
+strategy:document.getElementById("strategy").value,
+notes:document.getElementById("notes").value
+};
+
+if(!trade.pair||isNaN(trade.profit)){
+alert("Pair dan Profit/Loss wajib diisi.");
+return;
+}
+
+trades.push(trade);
+localStorage.setItem("trademind_trades",JSON.stringify(trades));
+
+document.getElementById("pair").value="";
+document.getElementById("entry").value="";
+document.getElementById("exit").value="";
+document.getElementById("profit").value="";
+document.getElementById("strategy").value="";
+document.getElementById("notes").value="";
+
+closeModal();
+render();
+}
+
+function render(){
+
+const tbody=document.getElementById("trades");
+tbody.innerHTML="";
+
+let total=0,wins=0,grossProfit=0,grossLoss=0;
+let equity=0,peak=0,maxDD=0;
+
+trades.forEach(t=>{
+
+total+=t.profit;
+equity+=t.profit;
+
+if(t.profit>0){
+wins++;
+grossProfit+=t.profit;
+}else{
+grossLoss+=Math.abs(t.profit);
+}
+
+if(equity>peak)peak=equity;
+
+let dd=peak-equity;
+if(dd>maxDD)maxDD=dd;
+
+tbody.innerHTML+=`
+<tr>
+<td>${t.date}</td>
+<td>${t.pair}</td>
+<td>${t.side}</td>
+<td>${t.entry||"-"}</td>
+<td>${t.exit||"-"}</td>
+<td class="${t.profit>=0?"green":"red"}">
+${t.profit>=0?"+":""}$${t.profit.toFixed(2)}
+</td>
+</tr>`;
+});
+
+let winrate=trades.length?wins/trades.length*100:0;
+let pf=grossLoss?grossProfit/grossLoss:0;
+let ddPercent=peak?maxDD/peak*100:0;
+
+document.getElementById("pnl").textContent=(total>=0?"+":"")+"$"+total.toFixed(2);
+document.getElementById("pnl").className="value "+(total>=0?"green":"red");
+
+document.getElementById("winrate").textContent=winrate.toFixed(1)+"%";
+document.getElementById("pf").textContent=pf.toFixed(2);
+document.getElementById("dd").textContent="-"+ddPercent.toFixed(1)+"%";
+
+let score=Math.round(
+(winrate*.4)+
+(Math.min(pf,2)/2*100*.3)+
+((100-Math.min(ddPercent,100))*.3)
+);
+
+document.getElementById("score").textContent=trades.length?score:0;
+
+drawChart();
+}
+
+function drawChart(){
+
+const svg=document.getElementById("line");
+
+if(!trades.length){
+svg.setAttribute("points","0,250");
+return;
+}
+
+let equity=0;
+let values=[0];
+
+trades.forEach(t=>{
+equity+=t.profit;
+values.push(equity);
+});
+
+let min=Math.min(...values);
+let max=Math.max(...values);
+
+if(max===min)max=min+1;
+
+let points=values.map((v,i)=>{
+let x=i/(values.length-1)*800;
+let y=250-((v-min)/(max-min))*210;
+return `${x},${y}`;
+}).join(" ");
+
+svg.setAttribute("points",points);
+}
+
+render();
+</script>
+
 </body>
-  </html>
+</html>
