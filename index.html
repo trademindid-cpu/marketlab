@@ -2,51 +2,420 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TradeMind — Trading Intelligence</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradeMind v0.5.1</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#080c11;color:#f5f7fa;font-family:Arial,sans-serif}
-header{height:70px;border-bottom:1px solid #202832;display:flex;align-items:center;justify-content:space-between;padding:0 25px;position:sticky;top:0;background:#080c11;z-index:3}
-.logo{font-size:24px;font-weight:bold}.logo span{color:#4ade80}
-nav a{color:#9ca3af;text-decoration:none;margin:0 10px;font-size:14px}
-button{border:0;border-radius:7px;padding:10px 15px;font-weight:bold;cursor:pointer}
-.primary{background:#4ade80;color:#061009}.danger{background:#ef4444;color:white}
-main{max-width:1400px;margin:auto;padding:30px}
-h1{margin:0 0 8px}.muted{color:#8b949e}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:25px 0}
-.card,.panel{background:#111820;border:1px solid #202832;border-radius:12px;padding:20px}
-.title{font-size:12px;color:#8b949e;margin-bottom:10px}
-.value{font-size:25px;font-weight:bold}
-.green{color:#4ade80}.red{color:#f87171}
-.grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
-.chart{height:280px}.chart svg{width:100%;height:100%}
-table{width:100%;border-collapse:collapse}
-th,td{text-align:left;padding:12px 8px;border-bottom:1px solid #202832;font-size:13px}
-th{color:#8b949e}
-.section{margin-top:25px}
-.analytics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.stat{background:#0b1118;border:1px solid #202832;border-radius:9px;padding:15px}
-.stat b{display:block;font-size:19px;margin-top:6px}
-.dna{display:grid;gap:10px}
-.dna-item{padding:15px;border-radius:9px;background:#0b1118;border:1px solid #202832}
-.dna-item strong{display:block;margin-bottom:5px}
-.modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:20px;z-index:5}
-.form{background:#111820;border:1px solid #303943;border-radius:14px;padding:25px;width:100%;max-width:520px}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-label{font-size:12px;color:#9ca3af}
-input,select,textarea{width:100%;margin-top:6px;padding:11px;background:#080c11;border:1px solid #303943;border-radius:7px;color:white}
-textarea{min-height:70px}.full{grid-column:1/-1}
-.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
-@media(max-width:800px){
-.cards{grid-template-columns:1fr 1fr}
-.grid,.analytics-grid{grid-template-columns:1fr}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
-@media(max-width:600px){
-header{padding:0 15px}nav{display:none}main{padding:18px}
-.cards{grid-template-columns:1fr}.fields{grid-template-columns:1fr}
-.stat-grid{grid-template-columns:1fr}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#0b1220;
+  color:#e5e7eb;
+  line-height:1.5;
+}
+
+header{
+  background:#111827;
+  border-bottom:1px solid #263244;
+  padding:16px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:800;
+  color:#38bdf8;
+}
+
+.version{
+  font-size:11px;
+  color:#94a3b8;
+  margin-left:8px;
+}
+
+nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+nav button{
+  background:#1e293b;
+  border:1px solid #334155;
+  color:#cbd5e1;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+nav button:hover{
+  background:#334155;
+}
+
+.container{
+  max-width:1400px;
+  margin:auto;
+  padding:24px;
+}
+
+section{
+  margin-bottom:30px;
+}
+
+.section-title{
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:15px;
+  color:#f8fafc;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.card{
+  background:#111827;
+  border:1px solid #263244;
+  border-radius:14px;
+  padding:18px;
+}
+
+.card h3{
+  color:#94a3b8;
+  font-size:13px;
+  margin-bottom:8px;
+  font-weight:600;
+}
+
+.value{
+  font-size:25px;
+  font-weight:800;
+  color:#f8fafc;
+}
+
+.subvalue{
+  font-size:12px;
+  color:#64748b;
+  margin-top:4px;
+}
+
+.green{
+  color:#22c55e !important;
+}
+
+.red{
+  color:#ef4444 !important;
+}
+
+.yellow{
+  color:#facc15 !important;
+}
+
+.blue{
+  color:#38bdf8 !important;
+}
+
+.purple{
+  color:#a78bfa !important;
+}
+
+form{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.form-group label{
+  font-size:12px;
+  color:#94a3b8;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  background:#0f172a;
+  border:1px solid #334155;
+  color:#f8fafc;
+  padding:10px 12px;
+  border-radius:8px;
+  outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#38bdf8;
+}
+
+textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+button{
+  border:0;
+  border-radius:8px;
+  padding:10px 15px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.btn-primary{
+  background:#0284c7;
+  color:white;
+}
+
+.btn-primary:hover{
+  background:#0369a1;
+}
+
+.btn-secondary{
+  background:#334155;
+  color:white;
+}
+
+.btn-danger{
+  background:#dc2626;
+  color:white;
+}
+
+.btn-success{
+  background:#16a34a;
+  color:white;
+}
+
+.btn-warning{
+  background:#ca8a04;
+  color:white;
+}
+
+.alert{
+  padding:13px 15px;
+  border-radius:9px;
+  margin-top:10px;
+  border:1px solid #334155;
+  background:#0f172a;
+}
+
+.alert-danger{
+  border-color:#7f1d1d;
+  background:#2a1010;
+  color:#fca5a5;
+}
+
+.alert-warning{
+  border-color:#713f12;
+  background:#241a08;
+  color:#fde68a;
+}
+
+.alert-success{
+  border-color:#14532d;
+  background:#0a2114;
+  color:#86efac;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:850px;
+}
+
+th,
+td{
+  padding:10px;
+  border-bottom:1px solid #263244;
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  color:#94a3b8;
+  background:#0f172a;
+}
+
+tr:hover td{
+  background:#172033;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.badge-buy{
+  background:#064e3b;
+  color:#6ee7b7;
+}
+
+.badge-sell{
+  background:#450a0a;
+  color:#fca5a5;
+}
+
+.badge-win{
+  background:#14532d;
+  color:#86efac;
+}
+
+.badge-loss{
+  background:#7f1d1d;
+  color:#fca5a5;
+}
+
+.badge-neutral{
+  background:#334155;
+  color:#cbd5e1;
+}
+
+.score{
+  font-size:45px;
+  font-weight:900;
+  color:#38bdf8;
+}
+
+.progress{
+  width:100%;
+  height:10px;
+  background:#1e293b;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.progress-bar{
+  height:100%;
+  background:#38bdf8;
+}
+
+canvas{
+  width:100%;
+  height:300px;
+  background:#0f172a;
+  border-radius:10px;
+}
+
+.file-input{
+  display:none;
+}
+
+.import-label{
+  display:inline-block;
+  background:#334155;
+  padding:10px 15px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.small{
+  font-size:12px;
+  color:#64748b;
+}
+
+.account-selector{
+  border:1px solid #075985;
+  background:#082f49;
+}
+
+.account-info{
+  margin-top:8px;
+  padding:10px;
+  border-radius:8px;
+  background:#0f172a;
+  border:1px solid #1e3a5f;
+  font-size:12px;
+  color:#94a3b8;
+}
+
+footer{
+  border-top:1px solid #263244;
+  padding:25px;
+  text-align:center;
+  color:#64748b;
+  font-size:12px;
+}
+
+@media(max-width:1000px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  form{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:650px){
+  header{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .container{
+    padding:15px;
+  }
+
+  .grid,
+  .grid-2,
+  .grid-3,
+  form{
+    grid-template-columns:1fr;
+  }
+
+  .value{
+    font-size:22px;
+  }
 }
 </style>
 </head>
@@ -54,195 +423,341 @@ header{padding:0 15px}nav{display:none}main{padding:18px}
 <body>
 
 <header>
-<div class="logo">Trade<span>Mind</span></div>
+  <div>
+    <span class="logo">TradeMind</span>
+    <span class="version">v0.5.1</span>
+  </div>
 
-<nav>
-<a href="#dashboard">Dashboard</a>
-<a href="#journal">Journal</a>
-<a href="#analytics">Analytics</a>
-</nav>
-
-<div>
-<input type="file" id="csv" accept=".csv" hidden onchange="importCSV(event)">
-<button onclick="document.getElementById('csv').click()">📂 CSV</button>
-<button class="primary" onclick="openForm()">+ Trade</button>
-</div>
+  <nav>
+    <button onclick="scrollToSection('dashboard')">Dashboard</button>
+    <button onclick="scrollToSection('risk')">Risk</button>
+    <button onclick="scrollToSection('addTrade')">Add Trade</button>
+    <button onclick="scrollToSection('analytics')">Analytics</button>
+    <button onclick="scrollToSection('journal')">Journal</button>
+  </nav>
 </header>
 
-<main>
+<div class="container">
 
+<!-- DASHBOARD -->
 <section id="dashboard">
 
-<h1>Trading Dashboard</h1>
-<p class="muted">Trading Intelligence Platform</p>
-
-<div class="cards">
-
-<div class="card">
-<div class="title">TOTAL P&L</div>
-<div id="pnl" class="value green">$0.00</div>
-</div>
-
-<div class="card">
-<div class="title">WIN RATE</div>
-<div id="win" class="value">0%</div>
-</div>
-
-<div class="card">
-<div class="title">PROFIT FACTOR</div>
-<div id="pf" class="value">0</div>
-</div>
-
-<div class="card">
-<div class="title">MAX DRAWDOWN</div>
-<div id="dd" class="value red">0%</div>
-</div>
-
-</div>
+<div class="section-title">Dashboard</div>
 
 <div class="grid">
 
-<div class="panel">
-<h2>Equity Curve</h2>
-<div class="chart">
-<svg viewBox="0 0 800 280" preserveAspectRatio="none">
-<polyline id="curve" fill="none" stroke="#4ade80" stroke-width="4" points="0,250"/>
-</svg>
-</div>
+<div class="card">
+<h3>Total P&L</h3>
+<div id="totalPnL" class="value">$0.00</div>
+<div id="totalPnLUsd" class="subvalue"></div>
 </div>
 
-<div class="panel">
-<h2>Trader Score</h2>
-<div style="text-align:center;padding:25px">
-<div id="score" class="value green" style="font-size:65px">0</div>
-<p class="muted">Performance Score</p>
+<div class="card">
+<h3>Win Rate</h3>
+<div id="winRate" class="value">0%</div>
 </div>
+
+<div class="card">
+<h3>Profit Factor</h3>
+<div id="profitFactor" class="value">0.00</div>
 </div>
+
+<div class="card">
+<h3>Max Drawdown</h3>
+<div id="maxDrawdown" class="value">$0.00</div>
+<div id="maxDrawdownUsd" class="subvalue"></div>
+</div>
+
+<div class="card">
+<h3>Average Win</h3>
+<div id="avgWin" class="value green">$0.00</div>
+</div>
+
+<div class="card">
+<h3>Average Loss</h3>
+<div id="avgLoss" class="value red">$0.00</div>
+</div>
+
+<div class="card">
+<h3>Best Trade</h3>
+<div id="bestTrade" class="value green">$0.00</div>
+</div>
+
+<div class="card">
+<h3>Worst Trade</h3>
+<div id="worstTrade" class="value red">$0.00</div>
+</div>
+
+</div>
+</section>
+
+<!-- RISK -->
+<section id="risk">
+
+<div class="section-title">Risk Management</div>
+
+<div class="card">
+
+<div class="grid-3">
+
+<div class="form-group">
+<label>Account Type</label>
+
+<select id="accountType"
+        class="account-selector"
+        onchange="changeAccountType(this.value)">
+
+<option value="USD">$ USD</option>
+<option value="CENT">¢ Cent</option>
+
+</select>
+
+<div class="account-info" id="accountInfo">
+USD account — $1 = 1 account unit.
+</div>
+
+</div>
+
+<div class="form-group">
+<label>Account Balance</label>
+<input type="number"
+       id="balance"
+       step="0.01"
+       onchange="saveRiskSettings()">
+</div>
+
+<div class="form-group">
+<label>Daily Loss Limit</label>
+<input type="number"
+       id="dailyLoss"
+       step="0.01"
+       onchange="saveRiskSettings()">
+</div>
+
+<div class="form-group">
+<label>Max Risk / Trade (%)</label>
+<input type="number"
+       id="maxRisk"
+       step="0.1"
+       min="0"
+       onchange="saveRiskSettings()">
+</div>
+
+</div>
+
+<div class="grid" style="margin-top:18px;">
+
+<div class="card">
+<h3>Current Equity</h3>
+<div id="currentEquity" class="value">$0.00</div>
+<div id="currentEquityUsd" class="subvalue"></div>
+</div>
+
+<div class="card">
+<h3>Today P&L</h3>
+<div id="todayPnL" class="value">$0.00</div>
+<div id="todayPnLUsd" class="subvalue"></div>
+</div>
+
+<div class="card">
+<h3>Remaining Daily Loss</h3>
+<div id="remainingDailyLoss" class="value">$0.00</div>
+<div id="remainingDailyLossUsd" class="subvalue"></div>
+</div>
+
+<div class="card">
+<h3>Max DD %</h3>
+<div id="maxDDPercent" class="value">0%</div>
+</div>
+
+</div>
+
+<div id="riskAlert"></div>
+
+</div>
+</section>
+
+<!-- ADD TRADE -->
+<section id="addTrade">
+
+<div class="section-title">Add Trade</div>
+
+<div class="card">
+
+<form id="tradeForm">
+
+<div class="form-group">
+<label>Date</label>
+<input type="datetime-local" id="tradeDate" required>
+</div>
+
+<div class="form-group">
+<label>Pair / Symbol</label>
+<input type="text" id="pair" placeholder="EURUSD" required>
+</div>
+
+<div class="form-group">
+<label>Side</label>
+<select id="side">
+<option value="BUY">BUY</option>
+<option value="SELL">SELL</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Lot / Volume</label>
+<input type="number" id="lot" step="0.01" min="0">
+</div>
+
+<div class="form-group">
+<label>Entry</label>
+<input type="number" id="entry" step="any">
+</div>
+
+<div class="form-group">
+<label>Exit</label>
+<input type="number" id="exit" step="any">
+</div>
+
+<div class="form-group">
+<label>P&L</label>
+<input type="number" id="pnl" step="0.01" required>
+</div>
+
+<div class="form-group">
+<label>Risk</label>
+<input type="number" id="risk" step="0.01">
+</div>
+
+<div class="form-group">
+<label>Stop Loss</label>
+<input type="number" id="sl" step="any">
+</div>
+
+<div class="form-group">
+<label>Take Profit</label>
+<input type="number" id="tp" step="any">
+</div>
+
+<div class="form-group">
+<label>Strategy</label>
+<input type="text" id="strategy" placeholder="Breakout">
+</div>
+
+<div class="form-group">
+<label>Notes</label>
+<input type="text" id="notes" placeholder="Trade notes">
+</div>
+
+</form>
+
+<div class="actions">
+
+<button class="btn-primary" onclick="addTrade()">
++ Add Trade
+</button>
+
+<button class="btn-secondary" onclick="resetForm()">
+Reset
+</button>
+
+<label class="import-label">
+Import CSV
+<input
+  type="file"
+  id="csvFile"
+  class="file-input"
+  accept=".csv"
+  onchange="importCSV(event)">
+</label>
+
+<button class="btn-danger" onclick="clearData()">
+Clear Data
+</button>
+
+</div>
+
+<div class="small" style="margin-top:12px;">
+P&L dan Risk mengikuti Account Type yang dipilih.
+Untuk akun Cent, 100¢ = $1.
+</div>
+
+</div>
+</section>
+
+<!-- ANALYTICS -->
+<section id="analytics">
+
+<div class="section-title">Analytics</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Winning Streak</h3>
+<div id="winningStreak" class="value green">0</div>
+</div>
+
+<div class="card">
+<h3>Losing Streak</h3>
+<div id="losingStreak" class="value red">0</div>
+</div>
+
+<div class="card">
+<h3>BUY P&L</h3>
+<div id="buyPnL" class="value">$0.00</div>
+</div>
+
+<div class="card">
+<h3>SELL P&L</h3>
+<div id="sellPnL" class="value">$0.00</div>
+</div>
+
+<div class="card">
+<h3>BUY Win Rate</h3>
+<div id="buyWinRate" class="value">0%</div>
+</div>
+
+<div class="card">
+<h3>SELL Win Rate</h3>
+<div id="sellWinRate" class="value">0%</div>
+</div>
+
+</div>
+
+<div class="card" style="margin-top:15px;">
+
+<h3>Equity Curve</h3>
+
+<canvas id="equityChart"></canvas>
 
 </div>
 
 </section>
 
-<section id="analytics" class="section">
+<!-- PAIR PERFORMANCE -->
+<section>
 
-<h2>📊 Analytics</h2>
+<div class="section-title">Pair Performance</div>
 
-<div class="analytics-grid">
+<div class="card">
 
-<div class="panel">
-<h2>Performance</h2>
-
-<div class="stat-grid">
-
-<div class="stat">
-<span class="muted">Average Win</span>
-<b id="avgWin" class="green">$0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Average Loss</span>
-<b id="avgLoss" class="red">$0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Best Trade</span>
-<b id="bestTrade" class="green">$0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Worst Trade</span>
-<b id="worstTrade" class="red">$0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Winning Streak</span>
-<b id="winStreak">0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Losing Streak</span>
-<b id="lossStreak">0</b>
-</div>
-
-</div>
-</div>
-
-<div class="panel">
-<h2>BUY vs SELL</h2>
-
-<div class="stat-grid">
-
-<div class="stat">
-<span class="muted">BUY P&L</span>
-<b id="buyPnl" class="green">$0</b>
-</div>
-
-<div class="stat">
-<span class="muted">SELL P&L</span>
-<b id="sellPnl" class="green">$0</b>
-</div>
-
-<div class="stat">
-<span class="muted">BUY Win Rate</span>
-<b id="buyWin">0%</b>
-</div>
-
-<div class="stat">
-<span class="muted">SELL Win Rate</span>
-<b id="sellWin">0%</b>
-</div>
-
-</div>
-</div>
-
-</div>
-
-<div class="analytics-grid section">
-
-<div class="panel">
-<h2>Pair Performance</h2>
+<div class="table-wrap">
 
 <table>
+
 <thead>
 <tr>
 <th>Pair</th>
 <th>Trades</th>
 <th>Win Rate</th>
 <th>P&L</th>
+<th>Avg P&L</th>
 </tr>
 </thead>
-<tbody id="pairRows"></tbody>
+
+<tbody id="pairPerformance"></tbody>
+
 </table>
-
-</div>
-
-<div class="panel">
-
-<h2>🧬 Trader DNA</h2>
-
-<div class="dna">
-
-<div class="dna-item">
-<strong class="green">💪 Strength</strong>
-<span id="strength">Belum cukup data.</span>
-</div>
-
-<div class="dna-item">
-<strong class="green">📈 Best Pair</strong>
-<span id="bestPair">-</span>
-</div>
-
-<div class="dna-item">
-<strong class="red">⚠️ Weakness</strong>
-<span id="weakness">Belum cukup data.</span>
-</div>
-
-<div class="dna-item">
-<strong>🧠 Behavior</strong>
-<span id="behavior">Belum cukup data.</span>
-</div>
-
-</div>
 
 </div>
 
@@ -250,19 +765,88 @@ header{padding:0 15px}nav{display:none}main{padding:18px}
 
 </section>
 
-<section id="journal" class="section">
+<!-- TRADER DNA -->
+<section>
 
-<div class="panel">
+<div class="section-title">Trader DNA</div>
 
-<div style="display:flex;justify-content:space-between;align-items:center">
-<h2>Trade Journal</h2>
-<button class="danger" onclick="clearData()">Clear</button>
+<div class="grid-3">
+
+<div class="card">
+<h3>Most Traded Pair</h3>
+<div id="dnaPair" class="value blue">-</div>
 </div>
 
-<div style="overflow:auto">
+<div class="card">
+<h3>Best Side</h3>
+<div id="dnaSide" class="value green">-</div>
+</div>
+
+<div class="card">
+<h3>Best Strategy</h3>
+<div id="dnaStrategy" class="value purple">-</div>
+</div>
+
+<div class="card">
+<h3>Total Trades</h3>
+<div id="dnaTrades" class="value">0</div>
+</div>
+
+<div class="card">
+<h3>Average R:R</h3>
+<div id="dnaRR" class="value">0.00</div>
+</div>
+
+<div class="card">
+<h3>Discipline Score</h3>
+<div id="dnaDiscipline" class="value">0%</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- TRADER SCORE -->
+<section>
+
+<div class="section-title">Trader Score</div>
+
+<div class="card">
+
+<div class="score" id="traderScore">
+0
+</div>
+
+<div class="progress">
+<div id="scoreBar"
+     class="progress-bar"
+     style="width:0%">
+</div>
+</div>
+
+<p id="scoreText"
+   class="small"
+   style="margin-top:10px;">
+Belum cukup data.
+</p>
+
+</div>
+
+</section>
+
+<!-- JOURNAL -->
+<section id="journal">
+
+<div class="section-title">Trade Journal</div>
+
+<div class="card">
+
+<div class="table-wrap">
 
 <table>
+
 <thead>
+
 <tr>
 <th>Date</th>
 <th>Pair</th>
@@ -271,9 +855,17 @@ header{padding:0 15px}nav{display:none}main{padding:18px}
 <th>Entry</th>
 <th>Exit</th>
 <th>P&L</th>
+<th>Risk</th>
+<th>Risk %</th>
+<th>R:R</th>
+<th>Strategy</th>
+<th>Action</th>
 </tr>
+
 </thead>
-<tbody id="rows"></tbody>
+
+<tbody id="journalBody"></tbody>
+
 </table>
 
 </div>
@@ -282,434 +874,446 @@ header{padding:0 15px}nav{display:none}main{padding:18px}
 
 </section>
 
-</main>
-
-<div class="modal" id="modal">
-
-<div class="form">
-
-<h2>Add Trade</h2>
-
-<div class="fields">
-
-<div>
-<label>Date</label>
-<input type="date" id="date">
 </div>
 
-<div>
-<label>Pair</label>
-<input id="pair" placeholder="EURUSD">
-</div>
+<footer>
+TradeMind — Trading Journal & Analytics
+<br>
+v0.5.1 • USD & Cent Account Support
+</footer>
 
-<div>
-<label>Side</label>
-<select id="side">
-<option>BUY</option>
-<option>SELL</option>
-</select>
-</div>
-
-<div>
-<label>Lot</label>
-<input type="number" id="lot" value="1" step=".01">
-</div>
-
-<div>
-<label>Entry</label>
-<input type="number" id="entry" step="any">
-</div>
-
-<div>
-<label>Exit</label>
-<input type="number" id="exit" step="any">
-</div>
-
-<div>
-<label>Profit / Loss ($)</label>
-<input type="number" id="profit" step="any">
-</div>
-
-<div>
-<label>Strategy</label>
-<input id="strategy" placeholder="Breakout">
-</div>
-
-<div class="full">
-<label>Notes</label>
-<textarea id="notes"></textarea>
-</div>
-
-</div>
-
-<div class="actions">
-<button onclick="closeForm()">Cancel</button>
-<button class="primary" onclick="saveTrade()">Save Trade</button>
-</div>
-
-</div>
-</div>
 
 <script>
 
-let trades=JSON.parse(localStorage.getItem("trademind")||"[]");
-
-function openForm(){
-modal.style.display="flex";
-date.value=new Date().toISOString().slice(0,10);
-}
-
-function closeForm(){
-modal.style.display="none";
-}
-
-function saveTrade(){
-
-let t={
-date:date.value,
-pair:pair.value.toUpperCase(),
-side:side.value,
-lot:Number(lot.value)||0,
-entry:Number(entry.value)||0,
-exit:Number(exit.value)||0,
-profit:Number(profit.value)||0,
-strategy:strategy.value,
-notes:notes.value
-};
-
-if(!t.pair){
-alert("Pair wajib diisi");
-return;
-}
-
-trades.push(t);
-
-localStorage.setItem("trademind",JSON.stringify(trades));
-
-pair.value="";
-entry.value="";
-exit.value="";
-profit.value="";
-strategy.value="";
-notes.value="";
-
-closeForm();
-render();
-
-}
-
-function importCSV(e){
-
-let file=e.target.files[0];
-if(!file)return;
-
-let reader=new FileReader();
-
-reader.onload=function(){
-
-let lines=reader.result.split(/\r?\n/).filter(x=>x.trim());
-
-if(lines.length<2){
-alert("CSV kosong");
-return;
-}
-
-let headers=lines[0].split(",").map(x=>
-x.trim().toLowerCase().replace(/[\s_-]/g,"")
+let trades = JSON.parse(
+  localStorage.getItem("trademind_trades") || "[]"
 );
 
-let count=0;
+let settings = JSON.parse(
+  localStorage.getItem("trademind_settings") ||
+  '{"balance":10000,"dailyLoss":100,"maxRisk":2,"accountType":"USD"}'
+);
 
-for(let i=1;i<lines.length;i++){
+/* =========================
+   MIGRATION
+========================= */
 
-let values=lines[i].split(",");
-let d={};
-
-headers.forEach((h,j)=>{
-d[h]=(values[j]||"").replace(/"/g,"").trim();
-});
-
-let t={
-date:d.date||d.datetime||"",
-pair:(d.pair||d.symbol||"").toUpperCase(),
-side:(d.side||d.type||"").toUpperCase(),
-lot:Number(d.lot||d.volume||0),
-entry:Number(d.entry||d.open||0),
-exit:Number(d.exit||d.close||0),
-profit:Number((d.profit||d.pnl||d.profitloss||"0").replace(/[$,]/g,"")),
-strategy:d.strategy||"",
-notes:"Imported CSV"
-};
-
-if(t.pair){
-trades.push(t);
-count++;
+if(!settings.accountType){
+  settings.accountType = "USD";
 }
 
+if(settings.balance === undefined){
+  settings.balance = 10000;
 }
 
-localStorage.setItem("trademind",JSON.stringify(trades));
+if(settings.dailyLoss === undefined){
+  settings.dailyLoss = 100;
+}
 
-render();
+if(settings.maxRisk === undefined){
+  settings.maxRisk = 2;
+}
 
-alert(count+" trade berhasil diimport!");
+/* =========================
+   HELPERS
+========================= */
 
-};
+function num(v){
+  const n = parseFloat(v);
+  return Number.isFinite(n) ? n : 0;
+}
 
-reader.readAsText(file);
-e.target.value="";
+function money(v){
+
+  v = num(v);
+
+  if(settings.accountType === "CENT"){
+    return "¢" + v.toLocaleString("en-US",{
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    });
+  }
+
+  return "$" + v.toLocaleString("en-US",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
+
+function usdValue(v){
+
+  v = num(v);
+
+  if(settings.accountType === "CENT"){
+    return "$" + (v / 100).toLocaleString("en-US",{
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    });
+  }
+
+  return "$" + v.toLocaleString("en-US",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
+
+function moneyWithUSD(v){
+
+  if(settings.accountType === "CENT"){
+    return `
+      <div>${money(v)}</div>
+      <div class="subvalue">≈ ${usdValue(v)}</div>
+    `;
+  }
+
+  return money(v);
+}
+
+function percent(v){
+
+  return num(v).toLocaleString("en-US",{
+    minimumFractionDigits:1,
+    maximumFractionDigits:1
+  }) + "%";
+
+}
+
+function esc(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+function today(){
+
+  const d = new Date();
+
+  return d.getFullYear()+"-"+
+
+    String(d.getMonth()+1).padStart(2,"0")+"-"+
+
+    String(d.getDate()).padStart(2,"0");
+
+}
+
+function accountFactor(){
+
+  return settings.accountType === "CENT" ? 100 : 1;
+
+}
+
+function calculateRR(risk,pnl){
+
+  risk = num(risk);
+  pnl = num(pnl);
+
+  if(risk <= 0) return 0;
+
+  return pnl / risk;
+
+}
+
+function saveTrades(){
+
+  localStorage.setItem(
+    "trademind_trades",
+    JSON.stringify(trades)
+  );
+
+}
+
+function saveSettings(){
+
+  settings.balance =
+    num(document.getElementById("balance").value);
+
+  settings.dailyLoss =
+    num(document.getElementById("dailyLoss").value);
+
+  settings.maxRisk =
+    num(document.getElementById("maxRisk").value);
+
+  localStorage.setItem(
+    "trademind_settings",
+    JSON.stringify(settings)
+  );
+
+  render();
+
+}
+
+/* =========================
+   ACCOUNT TYPE
+========================= */
+
+function changeAccountType(newType){
+
+  const oldType = settings.accountType;
+
+  if(newType === oldType){
+    updateAccountInfo();
+    return;
+  }
+
+  const oldFactor =
+    oldType === "CENT" ? 100 : 1;
+
+  const newFactor =
+    newType === "CENT" ? 100 : 1;
+
+  const ratio = newFactor / oldFactor;
+
+  const fromLabel =
+    oldType === "CENT" ? "Cent" : "USD";
+
+  const toLabel =
+    newType === "CENT" ? "Cent" : "USD";
+
+  const confirmed = confirm(
+    "Ganti akun " +
+    fromLabel +
+    " ke " +
+    toLabel +
+    "?\n\n" +
+
+    "TradeMind akan mengonversi nilai uang existing " +
+    "agar nilai nominal tetap sama.\n\n" +
+
+    "Contoh:\n" +
+    "$100 → 10.000¢\n" +
+    "10.000¢ → $100\n\n" +
+
+    "Entry, Exit, Stop Loss dan Take Profit TIDAK diubah.\n\n" +
+    "Lanjutkan?"
+  );
+
+  if(!confirmed){
+
+    document.getElementById("accountType").value =
+      oldType;
+
+    return;
+
+  }
+
+  settings.balance *= ratio;
+  settings.dailyLoss *= ratio;
+
+  trades = trades.map(t => {
+
+    return {
+      ...t,
+      pnl: num(t.pnl) * ratio,
+      risk: num(t.risk) * ratio
+    };
+
+  });
+
+  settings.accountType = newType;
+
+  saveTrades();
+
+  localStorage.setItem(
+    "trademind_settings",
+    JSON.stringify(settings)
+  );
+
+  loadSettings();
+
+  render();
+
+}
+
+function updateAccountInfo(){
+
+  const el =
+    document.getElementById("accountInfo");
+
+  if(settings.accountType === "CENT"){
+
+    el.innerHTML =
+      "Cent account — <b>100¢ = $1</b>. " +
+      "Semua P&L, Risk dan Balance menggunakan unit Cent.";
+
+  }else{
+
+    el.innerHTML =
+      "USD account — <b>$1 = 1 account unit</b>. " +
+      "Semua P&L, Risk dan Balance menggunakan USD.";
+
+  }
+
+}
+
+/* =========================
+   LOAD SETTINGS
+========================= */
+
+function loadSettings(){
+
+  document.getElementById("balance").value =
+    settings.balance;
+
+  document.getElementById("dailyLoss").value =
+    settings.dailyLoss;
+
+  document.getElementById("maxRisk").value =
+    settings.maxRisk;
+
+  document.getElementById("accountType").value =
+    settings.accountType;
+
+  updateAccountInfo();
+
+}
+
+/* =========================
+   ADD TRADE
+========================= */
+
+function addTrade(){
+
+  const trade = {
+
+    id: Date.now(),
+
+    date:
+      document.getElementById("tradeDate").value ||
+      new Date().toISOString(),
+
+    pair:
+      document.getElementById("pair").value
+      .trim()
+      .toUpperCase(),
+
+    side:
+      document.getElementById("side").value,
+
+    lot:
+      num(document.getElementById("lot").value),
+
+    entry:
+      num(document.getElementById("entry").value),
+
+    exit:
+      num(document.getElementById("exit").value),
+
+    pnl:
+      num(document.getElementById("pnl").value),
+
+    risk:
+      num(document.getElementById("risk").value),
+
+    sl:
+      num(document.getElementById("sl").value),
+
+    tp:
+      num(document.getElementById("tp").value),
+
+    strategy:
+      document.getElementById("strategy").value
+      .trim(),
+
+    notes:
+      document.getElementById("notes").value
+      .trim()
+
+  };
+
+  if(!trade.pair){
+
+    alert("Pair / Symbol wajib diisi.");
+
+    return;
+
+  }
+
+  if(!document.getElementById("pnl").value){
+
+    alert("P&L wajib diisi.");
+
+    return;
+
+  }
+
+  trades.push(trade);
+
+  saveTrades();
+
+  resetForm();
+
+  render();
+
+}
+
+function resetForm(){
+
+  document.getElementById("tradeForm").reset();
+
+  document.getElementById("tradeDate").value =
+    new Date().toISOString().slice(0,16);
+
+}
+
+function deleteTrade(id){
+
+  if(!confirm("Hapus trade ini?")) return;
+
+  trades = trades.filter(
+    t => t.id !== id
+  );
+
+  saveTrades();
+
+  render();
 
 }
 
 function clearData(){
 
-if(confirm("Hapus semua transaksi?")){
-trades=[];
-localStorage.removeItem("trademind");
-render();
-}
+  if(!confirm(
+    "Hapus SEMUA trade?\n\n" +
+    "Settings akun tidak akan dihapus."
+  )) return;
+
+  trades = [];
+
+  saveTrades();
+
+  render();
 
 }
 
-function render(){
+/* =========================
+   CALCULATE
+========================= */
 
-let total=0,wins=0,grossWin=0,grossLoss=0;
-let equity=0,peak=0,maxDD=0;
+function calculate(){
 
-let winValues=[];
-let lossValues=[];
-let winStreak=0,lossStreak=0;
-let currentWin=0,currentLoss=0;
+  const pnl = trades.map(
+    t => num(t.pnl)
+  );
 
-let pairs={};
-let buyPnl=0,sellPnl=0;
-let buyTrades=0,buyWins=0;
-let sellTrades=0,sellWins=0;
+  const wins =
+    pnl.filter(v => v > 0);
 
-let html="";
+  const losses =
+    pnl.filter(v => v < 0);
 
-trades.forEach(t=>{
+  const total =
+    pnl.reduce((a,b)=>a+b,0);
 
-let p=t.profit;
+  const grossWin =
+    wins.reduce((a,b)=>a+b,0);
 
-total+=p;
-equity+=p;
+  const grossLoss =
+    Math.abs(
+      losses.reduce((a,b)=>a+b,0)
+    );
 
-if(p>0){
-wins++;
-grossWin+=p;
-winValues.push(p);
-currentWin++;
-currentLoss=0;
-if(currentWin>winStreak)winStreak=currentWin;
-}else if(p<0){
-grossLoss+=Math.abs(p);
-lossValues.push(p);
-currentLoss++;
-currentWin=0;
-if(currentLoss>lossStreak)lossStreak=currentLoss;
-}
-
-if(equity>peak)peak=equity;
-
-let draw=peak-equity;
-if(draw>maxDD)maxDD=draw;
-
-let pair=t.pair||"UNKNOWN";
-
-if(!pairs[pair]){
-pairs[pair]={trades:0,wins:0,pnl:0};
-}
-
-pairs[pair].trades++;
-pairs[pair].pnl+=p;
-
-if(p>0)pairs[pair].wins++;
-
-if(t.side==="BUY"){
-buyTrades++;
-buyPnl+=p;
-if(p>0)buyWins++;
-}
-
-if(t.side==="SELL"){
-sellTrades++;
-sellPnl+=p;
-if(p>0)sellWins++;
-}
-
-html+=`
-<tr>
-<td>${t.date}</td>
-<td>${t.pair}</td>
-<td>${t.side}</td>
-<td>${t.lot}</td>
-<td>${t.entry||"-"}</td>
-<td>${t.exit||"-"}</td>
-<td class="${p>=0?"green":"red"}">
-${p>=0?"+":""}$${p.toFixed(2)}
-</td>
-</tr>`;
-
-});
-
-let winRate=trades.length?wins/trades.length*100:0;
-let pf=grossLoss?grossWin/grossLoss:0;
-let dd=peak?maxDD/peak*100:0;
-
-pnl.textContent=(total>=0?"+":"")+"$"+total.toFixed(2);
-pnl.className="value "+(total>=0?"green":"red");
-
-win.textContent=winRate.toFixed(1)+"%";
-pfEl=pf;
-document.getElementById("pf").textContent=pf.toFixed(2);
-ddEl=dd;
-document.getElementById("dd").textContent="-"+dd.toFixed(1)+"%";
-
-let score=trades.length?
-Math.round(winRate*.4+Math.min(pf,2)/2*100*.3+(100-Math.min(dd,100))*.3):0;
-
-document.getElementById("score").textContent=score;
-
-document.getElementById("rows").innerHTML=html;
-
-let avgWin=winValues.length?
-winValues.reduce((a,b)=>a+b,0)/winValues.length:0;
-
-let avgLoss=lossValues.length?
-lossValues.reduce((a,b)=>a+b,0)/lossValues.length:0;
-
-document.getElementById("avgWin").textContent="$"+avgWin.toFixed(2);
-document.getElementById("avgLoss").textContent="$"+avgLoss.toFixed(2);
-
-let best=trades.length?Math.max(...trades.map(t=>t.profit)):0;
-let worst=trades.length?Math.min(...trades.map(t=>t.profit)):0;
-
-document.getElementById("bestTrade").textContent="$"+best.toFixed(2);
-document.getElementById("worstTrade").textContent="$"+worst.toFixed(2);
-
-document.getElementById("winStreak").textContent=winStreak;
-document.getElementById("lossStreak").textContent=lossStreak;
-
-document.getElementById("buyPnl").textContent="$"+buyPnl.toFixed(2);
-document.getElementById("sellPnl").textContent="$"+sellPnl.toFixed(2);
-
-document.getElementById("buyWin").textContent=
-buyTrades?(buyWins/buyTrades*100).toFixed(1)+"%":"0%";
-
-document.getElementById("sellWin").textContent=
-sellTrades?(sellWins/sellTrades*100).toFixed(1)+"%":"0%";
-
-let pairHTML="";
-let bestPair="-";
-let bestPairPnl=-Infinity;
-
-Object.keys(pairs).forEach(pair=>{
-
-let x=pairs[pair];
-let rate=x.trades?x.wins/x.trades*100:0;
-
-if(x.pnl>bestPairPnl){
-bestPairPnl=x.pnl;
-bestPair=pair;
-}
-
-pairHTML+=`
-<tr>
-<td>${pair}</td>
-<td>${x.trades}</td>
-<td>${rate.toFixed(1)}%</td>
-<td class="${x.pnl>=0?"green":"red"}">
-${x.pnl>=0?"+":""}$${x.pnl.toFixed(2)}
-</td>
-</tr>`;
-
-});
-
-document.getElementById("pairRows").innerHTML=pairHTML;
-
-document.getElementById("bestPair").textContent=
-bestPair==="-"?"-":bestPair+" ($"+bestPairPnl.toFixed(2)+")";
-
-if(!trades.length){
-
-document.getElementById("strength").textContent="Tambahkan trade untuk membaca pola.";
-document.getElementById("weakness").textContent="Tambahkan trade untuk membaca pola.";
-document.getElementById("behavior").textContent="Tambahkan trade untuk membaca pola.";
-
-}else{
-
-document.getElementById("strength").textContent=
-bestPair+" adalah pair dengan kontribusi terbaik.";
-
-if(lossStreak>=3){
-
-document.getElementById("weakness").textContent=
-"Anda mengalami losing streak "+lossStreak+" trade. Perhatikan overtrading.";
-
-}else{
-
-document.getElementById("weakness").textContent=
-"Belum terlihat pola risiko besar dari data saat ini.";
-
-}
-
-if(trades.length>=5){
-
-document.getElementById("behavior").textContent=
-"Data mulai cukup untuk membaca pola trading Anda.";
-
-}else{
-
-document.getElementById("behavior").textContent=
-"Tambahkan minimal 5 trade untuk analisis perilaku yang lebih akurat.";
-
-}
-
-}
-
-drawChart();
-
-}
-
-function drawChart(){
-
-let curve=document.getElementById("curve");
-
-if(!trades.length){
-curve.setAttribute("points","0,250");
-return;
-}
-
-let values=[0];
-let equity=0;
-
-trades.forEach(t=>{
-equity+=t.profit;
-values.push(equity);
-});
-
-let min=Math.min(...values);
-let max=Math.max(...values);
-
-if(min===max)max=min+1;
-
-let points=values.map((v,i)=>{
-
-let x=i/(values.length-1)*800;
-let y=250-((v-min)/(max-min))*210;
-
-return x+","+y;
-
-}).join(" ");
-
-curve.setAttribute("points",points);
-
-}
-
-render();
-
-</script>
-
-</body>
-</html>
+  const w
