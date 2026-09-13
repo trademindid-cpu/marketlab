@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TradeMind</title>
-
+<title>TradeMind — Trading Intelligence</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#080c11;color:#f5f7fa;font-family:Arial,sans-serif}
-header{height:70px;border-bottom:1px solid #202832;display:flex;align-items:center;justify-content:space-between;padding:0 25px}
+header{height:70px;border-bottom:1px solid #202832;display:flex;align-items:center;justify-content:space-between;padding:0 25px;position:sticky;top:0;background:#080c11;z-index:3}
 .logo{font-size:24px;font-weight:bold}.logo span{color:#4ade80}
 nav a{color:#9ca3af;text-decoration:none;margin:0 10px;font-size:14px}
 button{border:0;border-radius:7px;padding:10px 15px;font-weight:bold;cursor:pointer}
 .primary{background:#4ade80;color:#061009}.danger{background:#ef4444;color:white}
 main{max-width:1400px;margin:auto;padding:30px}
-.muted{color:#8b949e}
+h1{margin:0 0 8px}.muted{color:#8b949e}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:25px 0}
 .card,.panel{background:#111820;border:1px solid #202832;border-radius:12px;padding:20px}
 .title{font-size:12px;color:#8b949e;margin-bottom:10px}
@@ -25,6 +24,14 @@ main{max-width:1400px;margin:auto;padding:30px}
 table{width:100%;border-collapse:collapse}
 th,td{text-align:left;padding:12px 8px;border-bottom:1px solid #202832;font-size:13px}
 th{color:#8b949e}
+.section{margin-top:25px}
+.analytics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat{background:#0b1118;border:1px solid #202832;border-radius:9px;padding:15px}
+.stat b{display:block;font-size:19px;margin-top:6px}
+.dna{display:grid;gap:10px}
+.dna-item{padding:15px;border-radius:9px;background:#0b1118;border:1px solid #202832}
+.dna-item strong{display:block;margin-bottom:5px}
 .modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:20px;z-index:5}
 .form{background:#111820;border:1px solid #303943;border-radius:14px;padding:25px;width:100%;max-width:520px}
 .fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -32,8 +39,15 @@ label{font-size:12px;color:#9ca3af}
 input,select,textarea{width:100%;margin-top:6px;padding:11px;background:#080c11;border:1px solid #303943;border-radius:7px;color:white}
 textarea{min-height:70px}.full{grid-column:1/-1}
 .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
-@media(max-width:800px){.cards{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
-@media(max-width:600px){header{padding:0 15px}nav{display:none}main{padding:18px}.cards{grid-template-columns:1fr}.fields{grid-template-columns:1fr}}
+@media(max-width:800px){
+.cards{grid-template-columns:1fr 1fr}
+.grid,.analytics-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+header{padding:0 15px}nav{display:none}main{padding:18px}
+.cards{grid-template-columns:1fr}.fields{grid-template-columns:1fr}
+.stat-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 
@@ -43,9 +57,9 @@ textarea{min-height:70px}.full{grid-column:1/-1}
 <div class="logo">Trade<span>Mind</span></div>
 
 <nav>
-<a href="#">Dashboard</a>
+<a href="#dashboard">Dashboard</a>
 <a href="#journal">Journal</a>
-<a href="#">Analytics</a>
+<a href="#analytics">Analytics</a>
 </nav>
 
 <div>
@@ -56,6 +70,8 @@ textarea{min-height:70px}.full{grid-column:1/-1}
 </header>
 
 <main>
+
+<section id="dashboard">
 
 <h1>Trading Dashboard</h1>
 <p class="muted">Trading Intelligence Platform</p>
@@ -88,34 +104,155 @@ textarea{min-height:70px}.full{grid-column:1/-1}
 
 <div class="panel">
 <h2>Equity Curve</h2>
-
 <div class="chart">
 <svg viewBox="0 0 800 280" preserveAspectRatio="none">
-<polyline id="curve"
-fill="none"
-stroke="#4ade80"
-stroke-width="4"
-points="0,250"/>
+<polyline id="curve" fill="none" stroke="#4ade80" stroke-width="4" points="0,250"/>
 </svg>
 </div>
-
 </div>
 
 <div class="panel">
 <h2>Trader Score</h2>
-
 <div style="text-align:center;padding:25px">
 <div id="score" class="value green" style="font-size:65px">0</div>
 <p class="muted">Performance Score</p>
 </div>
+</div>
+
+</div>
+
+</section>
+
+<section id="analytics" class="section">
+
+<h2>📊 Analytics</h2>
+
+<div class="analytics-grid">
+
+<div class="panel">
+<h2>Performance</h2>
+
+<div class="stat-grid">
+
+<div class="stat">
+<span class="muted">Average Win</span>
+<b id="avgWin" class="green">$0</b>
+</div>
+
+<div class="stat">
+<span class="muted">Average Loss</span>
+<b id="avgLoss" class="red">$0</b>
+</div>
+
+<div class="stat">
+<span class="muted">Best Trade</span>
+<b id="bestTrade" class="green">$0</b>
+</div>
+
+<div class="stat">
+<span class="muted">Worst Trade</span>
+<b id="worstTrade" class="red">$0</b>
+</div>
+
+<div class="stat">
+<span class="muted">Winning Streak</span>
+<b id="winStreak">0</b>
+</div>
+
+<div class="stat">
+<span class="muted">Losing Streak</span>
+<b id="lossStreak">0</b>
+</div>
+
+</div>
+</div>
+
+<div class="panel">
+<h2>BUY vs SELL</h2>
+
+<div class="stat-grid">
+
+<div class="stat">
+<span class="muted">BUY P&L</span>
+<b id="buyPnl" class="green">$0</b>
+</div>
+
+<div class="stat">
+<span class="muted">SELL P&L</span>
+<b id="sellPnl" class="green">$0</b>
+</div>
+
+<div class="stat">
+<span class="muted">BUY Win Rate</span>
+<b id="buyWin">0%</b>
+</div>
+
+<div class="stat">
+<span class="muted">SELL Win Rate</span>
+<b id="sellWin">0%</b>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div class="analytics-grid section">
+
+<div class="panel">
+<h2>Pair Performance</h2>
+
+<table>
+<thead>
+<tr>
+<th>Pair</th>
+<th>Trades</th>
+<th>Win Rate</th>
+<th>P&L</th>
+</tr>
+</thead>
+<tbody id="pairRows"></tbody>
+</table>
+
+</div>
+
+<div class="panel">
+
+<h2>🧬 Trader DNA</h2>
+
+<div class="dna">
+
+<div class="dna-item">
+<strong class="green">💪 Strength</strong>
+<span id="strength">Belum cukup data.</span>
+</div>
+
+<div class="dna-item">
+<strong class="green">📈 Best Pair</strong>
+<span id="bestPair">-</span>
+</div>
+
+<div class="dna-item">
+<strong class="red">⚠️ Weakness</strong>
+<span id="weakness">Belum cukup data.</span>
+</div>
+
+<div class="dna-item">
+<strong>🧠 Behavior</strong>
+<span id="behavior">Belum cukup data.</span>
+</div>
+
+</div>
 
 </div>
 
 </div>
 
-<br>
+</section>
 
-<div class="panel" id="journal">
+<section id="journal" class="section">
+
+<div class="panel">
 
 <div style="display:flex;justify-content:space-between;align-items:center">
 <h2>Trade Journal</h2>
@@ -136,7 +273,6 @@ points="0,250"/>
 <th>P&L</th>
 </tr>
 </thead>
-
 <tbody id="rows"></tbody>
 </table>
 
@@ -144,9 +280,9 @@ points="0,250"/>
 
 </div>
 
-</main>
+</section>
 
-<!-- FORM -->
+</main>
 
 <div class="modal" id="modal">
 
@@ -219,12 +355,12 @@ points="0,250"/>
 let trades=JSON.parse(localStorage.getItem("trademind")||"[]");
 
 function openForm(){
-document.getElementById("modal").style.display="flex";
-document.getElementById("date").value=new Date().toISOString().slice(0,10);
+modal.style.display="flex";
+date.value=new Date().toISOString().slice(0,10);
 }
 
 function closeForm(){
-document.getElementById("modal").style.display="none";
+modal.style.display="none";
 }
 
 function saveTrade(){
@@ -250,9 +386,12 @@ trades.push(t);
 
 localStorage.setItem("trademind",JSON.stringify(trades));
 
-document.querySelectorAll(".form input,.form textarea").forEach(x=>{
-if(x.type!=="date")x.value="";
-});
+pair.value="";
+entry.value="";
+exit.value="";
+profit.value="";
+strategy.value="";
+notes.value="";
 
 closeForm();
 render();
@@ -262,7 +401,6 @@ render();
 function importCSV(e){
 
 let file=e.target.files[0];
-
 if(!file)return;
 
 let reader=new FileReader();
@@ -280,10 +418,11 @@ let headers=lines[0].split(",").map(x=>
 x.trim().toLowerCase().replace(/[\s_-]/g,"")
 );
 
+let count=0;
+
 for(let i=1;i<lines.length;i++){
 
 let values=lines[i].split(",");
-
 let d={};
 
 headers.forEach((h,j)=>{
@@ -297,15 +436,15 @@ side:(d.side||d.type||"").toUpperCase(),
 lot:Number(d.lot||d.volume||0),
 entry:Number(d.entry||d.open||0),
 exit:Number(d.exit||d.close||0),
-profit:Number(
-(d.profit||d.pnl||d.profitloss||"0")
-.replace(/[$,]/g,"")
-),
+profit:Number((d.profit||d.pnl||d.profitloss||"0").replace(/[$,]/g,"")),
 strategy:d.strategy||"",
 notes:"Imported CSV"
 };
 
-if(t.pair)trades.push(t);
+if(t.pair){
+trades.push(t);
+count++;
+}
 
 }
 
@@ -313,12 +452,11 @@ localStorage.setItem("trademind",JSON.stringify(trades));
 
 render();
 
-alert("CSV berhasil diimport!");
+alert(count+" trade berhasil diimport!");
 
 };
 
 reader.readAsText(file);
-
 e.target.value="";
 
 }
@@ -326,46 +464,79 @@ e.target.value="";
 function clearData(){
 
 if(confirm("Hapus semua transaksi?")){
-
 trades=[];
-
 localStorage.removeItem("trademind");
-
 render();
-
 }
 
 }
 
 function render(){
 
-let total=0;
-let wins=0;
-let grossWin=0;
-let grossLoss=0;
-let equity=0;
-let peak=0;
-let maxDD=0;
+let total=0,wins=0,grossWin=0,grossLoss=0;
+let equity=0,peak=0,maxDD=0;
+
+let winValues=[];
+let lossValues=[];
+let winStreak=0,lossStreak=0;
+let currentWin=0,currentLoss=0;
+
+let pairs={};
+let buyPnl=0,sellPnl=0;
+let buyTrades=0,buyWins=0;
+let sellTrades=0,sellWins=0;
 
 let html="";
 
 trades.forEach(t=>{
 
-total+=t.profit;
-equity+=t.profit;
+let p=t.profit;
 
-if(t.profit>0){
+total+=p;
+equity+=p;
+
+if(p>0){
 wins++;
-grossWin+=t.profit;
-}else{
-grossLoss+=Math.abs(t.profit);
+grossWin+=p;
+winValues.push(p);
+currentWin++;
+currentLoss=0;
+if(currentWin>winStreak)winStreak=currentWin;
+}else if(p<0){
+grossLoss+=Math.abs(p);
+lossValues.push(p);
+currentLoss++;
+currentWin=0;
+if(currentLoss>lossStreak)lossStreak=currentLoss;
 }
 
 if(equity>peak)peak=equity;
 
 let draw=peak-equity;
-
 if(draw>maxDD)maxDD=draw;
+
+let pair=t.pair||"UNKNOWN";
+
+if(!pairs[pair]){
+pairs[pair]={trades:0,wins:0,pnl:0};
+}
+
+pairs[pair].trades++;
+pairs[pair].pnl+=p;
+
+if(p>0)pairs[pair].wins++;
+
+if(t.side==="BUY"){
+buyTrades++;
+buyPnl+=p;
+if(p>0)buyWins++;
+}
+
+if(t.side==="SELL"){
+sellTrades++;
+sellPnl+=p;
+if(p>0)sellWins++;
+}
 
 html+=`
 <tr>
@@ -375,43 +546,127 @@ html+=`
 <td>${t.lot}</td>
 <td>${t.entry||"-"}</td>
 <td>${t.exit||"-"}</td>
-<td class="${t.profit>=0?"green":"red"}">
-${t.profit>=0?"+":""}$${t.profit.toFixed(2)}
+<td class="${p>=0?"green":"red"}">
+${p>=0?"+":""}$${p.toFixed(2)}
 </td>
 </tr>`;
+
 });
 
-let winRate=trades.length?(wins/trades.length)*100:0;
-
+let winRate=trades.length?wins/trades.length*100:0;
 let pf=grossLoss?grossWin/grossLoss:0;
-
 let dd=peak?maxDD/peak*100:0;
 
-document.getElementById("pnl").textContent=
-(total>=0?"+":"")+"$"+total.toFixed(2);
+pnl.textContent=(total>=0?"+":"")+"$"+total.toFixed(2);
+pnl.className="value "+(total>=0?"green":"red");
 
-document.getElementById("pnl").className=
-"value "+(total>=0?"green":"red");
-
-document.getElementById("win").textContent=
-winRate.toFixed(1)+"%";
-
-document.getElementById("pf").textContent=
-pf.toFixed(2);
-
-document.getElementById("dd").textContent=
-"-"+dd.toFixed(1)+"%";
+win.textContent=winRate.toFixed(1)+"%";
+pfEl=pf;
+document.getElementById("pf").textContent=pf.toFixed(2);
+ddEl=dd;
+document.getElementById("dd").textContent="-"+dd.toFixed(1)+"%";
 
 let score=trades.length?
-Math.round(
-winRate*.4+
-Math.min(pf,2)/2*100*.3+
-(100-Math.min(dd,100))*.3
-):0;
+Math.round(winRate*.4+Math.min(pf,2)/2*100*.3+(100-Math.min(dd,100))*.3):0;
 
 document.getElementById("score").textContent=score;
 
 document.getElementById("rows").innerHTML=html;
+
+let avgWin=winValues.length?
+winValues.reduce((a,b)=>a+b,0)/winValues.length:0;
+
+let avgLoss=lossValues.length?
+lossValues.reduce((a,b)=>a+b,0)/lossValues.length:0;
+
+document.getElementById("avgWin").textContent="$"+avgWin.toFixed(2);
+document.getElementById("avgLoss").textContent="$"+avgLoss.toFixed(2);
+
+let best=trades.length?Math.max(...trades.map(t=>t.profit)):0;
+let worst=trades.length?Math.min(...trades.map(t=>t.profit)):0;
+
+document.getElementById("bestTrade").textContent="$"+best.toFixed(2);
+document.getElementById("worstTrade").textContent="$"+worst.toFixed(2);
+
+document.getElementById("winStreak").textContent=winStreak;
+document.getElementById("lossStreak").textContent=lossStreak;
+
+document.getElementById("buyPnl").textContent="$"+buyPnl.toFixed(2);
+document.getElementById("sellPnl").textContent="$"+sellPnl.toFixed(2);
+
+document.getElementById("buyWin").textContent=
+buyTrades?(buyWins/buyTrades*100).toFixed(1)+"%":"0%";
+
+document.getElementById("sellWin").textContent=
+sellTrades?(sellWins/sellTrades*100).toFixed(1)+"%":"0%";
+
+let pairHTML="";
+let bestPair="-";
+let bestPairPnl=-Infinity;
+
+Object.keys(pairs).forEach(pair=>{
+
+let x=pairs[pair];
+let rate=x.trades?x.wins/x.trades*100:0;
+
+if(x.pnl>bestPairPnl){
+bestPairPnl=x.pnl;
+bestPair=pair;
+}
+
+pairHTML+=`
+<tr>
+<td>${pair}</td>
+<td>${x.trades}</td>
+<td>${rate.toFixed(1)}%</td>
+<td class="${x.pnl>=0?"green":"red"}">
+${x.pnl>=0?"+":""}$${x.pnl.toFixed(2)}
+</td>
+</tr>`;
+
+});
+
+document.getElementById("pairRows").innerHTML=pairHTML;
+
+document.getElementById("bestPair").textContent=
+bestPair==="-"?"-":bestPair+" ($"+bestPairPnl.toFixed(2)+")";
+
+if(!trades.length){
+
+document.getElementById("strength").textContent="Tambahkan trade untuk membaca pola.";
+document.getElementById("weakness").textContent="Tambahkan trade untuk membaca pola.";
+document.getElementById("behavior").textContent="Tambahkan trade untuk membaca pola.";
+
+}else{
+
+document.getElementById("strength").textContent=
+bestPair+" adalah pair dengan kontribusi terbaik.";
+
+if(lossStreak>=3){
+
+document.getElementById("weakness").textContent=
+"Anda mengalami losing streak "+lossStreak+" trade. Perhatikan overtrading.";
+
+}else{
+
+document.getElementById("weakness").textContent=
+"Belum terlihat pola risiko besar dari data saat ini.";
+
+}
+
+if(trades.length>=5){
+
+document.getElementById("behavior").textContent=
+"Data mulai cukup untuk membaca pola trading Anda.";
+
+}else{
+
+document.getElementById("behavior").textContent=
+"Tambahkan minimal 5 trade untuk analisis perilaku yang lebih akurat.";
+
+}
+
+}
 
 drawChart();
 
@@ -422,11 +677,8 @@ function drawChart(){
 let curve=document.getElementById("curve");
 
 if(!trades.length){
-
 curve.setAttribute("points","0,250");
-
 return;
-
 }
 
 let values=[0];
@@ -445,7 +697,6 @@ if(min===max)max=min+1;
 let points=values.map((v,i)=>{
 
 let x=i/(values.length-1)*800;
-
 let y=250-((v-min)/(max-min))*210;
 
 return x+","+y;
